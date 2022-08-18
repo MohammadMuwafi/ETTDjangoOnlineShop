@@ -14,8 +14,9 @@ services:
           python manage.py add_admin_user &&
           python manage.py runserver 0.0.0.0:8000"  
     depends_on:
-      - rabbitmq
+      # - rabbitmq
       - redis
+
 
   
   redis:
@@ -25,10 +26,10 @@ services:
       - '6379:6379'
 
   
-  rabbitmq:
-    image: rabbitmq:alpine
-    ports: 
-      - '8001:5672'
+  # rabbitmq:
+  #   image: rabbitmq:alpine
+  #   ports: 
+  #     - '8001:5672'
 
 
   celery:
@@ -39,5 +40,4 @@ services:
     volumes:
       - ./django-project:/usr/src/app
     depends_on:
-      - rabbitmq
-
+      - redis
